@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - LV33 Casino</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+        }
+
+          .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo img {
+            height: 45px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+         .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 40px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 107, 107, 0.1));
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .terms-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .terms-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            border-radius: 2px;
+        }
+
+        .terms-section h3 {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+        }
+
+        .terms-section p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .terms-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-section li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .terms-section li::marker {
+            color: #ffd700;
+        }
+
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .toc {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .toc h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: block;
+        }
+
+        .toc a:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            transform: translateX(5px);
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px 0 20px 0;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .terms-content {
+                padding: 20px;
+            }
+
+            .toc ul {
+                columns: 1;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .terms-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images-1.png" alt="LV33 Logo">
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="currency.html">Vlogger/Ambasador Program</a>
+                <a href="promotion.html">Promotions</a>
+                <a href="News.html">Vlogger/Ambasador Program</a>
+                <a href="deposit.html">How to Deposit/Withdraw</a>
+                <a href="rebates.html">Rebates & Bonuses</a>
+                <a href="affiliate.html">Affiliate Program</a>
+                <a href="video.html">Video Center</a>
+                <a href="download.html">Downlaod App</a>
+                <a href="live_chat.html">Live Chat</a>
+            </nav>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <button class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" data-aos="fade-up">
+                <h1>Terms & Conditions</h1>
+                <p>Please read these terms and conditions carefully before using our casino services. By accessing our platform, you agree to be bound by these terms.</p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="toc" data-aos="fade-up" data-aos-delay="100">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#acceptance">1. Acceptance of Terms</a></li>
+                    <li><a href="#eligibility">2. Eligibility & Registration</a></li>
+                    <li><a href="#account">3. Account Management</a></li>
+                    <li><a href="#deposits">4. Deposits & Withdrawals</a></li>
+                    <li><a href="#gaming">5. Gaming Rules</a></li>
+                    <li><a href="#bonuses">6. Bonuses & Promotions</a></li>
+                    <li><a href="#responsible">7. Responsible Gaming</a></li>
+                    <li><a href="#privacy">8. Privacy & Security</a></li>
+                    <li><a href="#intellectual">9. Intellectual Property</a></li>
+                    <li><a href="#limitation">10. Limitation of Liability</a></li>
+                    <li><a href="#termination">11. Account Termination</a></li>
+                    <li><a href="#changes">12. Changes to Terms</a></li>
+                </ul>
+            </div>
+
+            <!-- Terms Content -->
+            <div class="terms-content">
+                <!-- Section 1: Acceptance of Terms -->
+                <div class="terms-section" id="acceptance" data-aos="fade-up">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>Welcome to LV33 Casino ("we," "us," or "our"). These Terms and Conditions ("Terms") constitute a legally binding agreement between you and LV33 Casino regarding your use of our online casino platform and services.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> By creating an account, accessing our website, or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and all applicable laws and regulations.</p>
+                    </div>
+                    
+                    <p>If you do not agree to these Terms, you must not use our services. These Terms apply to all users of our platform, including casual visitors and registered players.</p>
+                </div>
+
+                <!-- Section 2: Eligibility & Registration -->
+                <div class="terms-section" id="eligibility" data-aos="fade-up">
+                    <h2>2. Eligibility & Registration</h2>
+                    
+                    <h3>2.1 Age Requirements</h3>
+                    <p>You must be at least 18 years old (or the legal gambling age in your jurisdiction, whichever is higher) to use our services. We reserve the right to verify your age at any time.</p>
+                    
+                    <h3>2.2 Geographic Restrictions</h3>
+                    <p>Our services are not available to residents of certain jurisdictions. You are responsible for ensuring that your use of our services complies with local laws and regulations.</p>
+                    
+                    <h3>2.3 Registration Requirements</h3>
+                    <ul>
+                        <li>Provide accurate and complete information during registration</li>
+                        <li>Maintain only one account per person</li>
+                        <li>Keep your login credentials secure and confidential</li>
+                        <li>Notify us immediately of any unauthorized account access</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <p><strong>Warning:</strong> Creating multiple accounts or providing false information will result in immediate account suspension and forfeiture of all funds.</p>
+                    </div>
+                </div>
+
+                <!-- Section 3: Account Management -->
+                <div class="terms-section" id="account" data-aos="fade-up">
+                    <h2>3. Account Management</h2>
+                    
+                    <h3>3.1 Account Security</h3>
+                    <p>You are solely responsible for maintaining the security of your account and all activities that occur under your account. This includes:</p>
+                    <ul>
+                        <li>Choosing a strong, unique password</li>
+                        <li>Enabling two-factor authentication when available</li>
+                        <li>Logging out after each session</li>
+                        <li>Not sharing your account with others</li>
+                    </ul>
+                    
+                    <h3>3.2 Account Verification</h3>
+                    <p>We may require you to verify your identity through documentation such as government-issued ID, proof of address, or payment method verification. Failure to provide requested documents may result in account restrictions.</p>
+                    
+                    <h3>3.3 Account Limits</h3>
+                    <p>You may set deposit, loss, and session limits on your account. These limits are designed to help you maintain control over your gambling activities and promote responsible gaming.</p>
+                </div>
+
+                <!-- Section 4: Deposits & Withdrawals -->
+                <div class="terms-section" id="deposits" data-aos="fade-up">
+                    <h2>4. Deposits & Withdrawals</h2>
+                    
+                    <h3>4.1 Deposit Methods</h3>
+                    <p>We accept various payment methods including credit/debit cards, e-wallets, bank transfers, and cryptocurrencies. All deposits are subject to:</p>
+                    <ul>
+                        <li>Minimum and maximum deposit limits</li>
+                        <li>Processing fees (if applicable)</li>
+                        <li>Anti-money laundering verification</li>
+                        <li>Payment method verification</li>
+                    </ul>
+                    
+                    <h3>4.2 Withdrawal Policy</h3>
+                    <p>Withdrawals are processed according to the following guidelines:</p>
+                    <ul>
+                        <li>Identity verification must be completed before first withdrawal</li>
+                        <li>Withdrawals are processed within 24-72 hours</li>
+                        <li>Minimum withdrawal amounts apply</li>
+                        <li>Funds must be withdrawn using the same method as deposit (where possible)</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Fast Withdrawals:</strong> VIP members enjoy priority processing with withdrawals typically completed within 12-24 hours.</p>
+                    </div>
+                    
+                    <h3>4.3 Bonus Wagering Requirements</h3>
+                    <p>All bonuses are subject to wagering requirements before withdrawal. These requirements vary by bonus type and are clearly stated in the bonus terms.</p>
+                </div>
+
+                <!-- Section 5: Gaming Rules -->
+                <div class="terms-section" id="gaming" data-aos="fade-up">
+                    <h2>5. Gaming Rules</h2>
+                    
+                    <h3>5.1 Fair Play</h3>
+                    <p>All games on our platform use certified Random Number Generators (RNG) to ensure fair and random outcomes. We are regularly audited by independent testing agencies to maintain gaming integrity.</p>
+                    
+                    <h3>5.2 Prohibited Activities</h3>
+                    <p>The following activities are strictly prohibited and may result in account termination:</p>
+                    <ul>
+                        <li>Using betting systems or strategies to exploit bonuses</li>
+                        <li>Colluding with other players</li>
+                        <li>Using automated betting software or bots</li>
+                        <li>Attempting to manipulate game outcomes</li>
+                        <li>Engaging in fraudulent or illegal activities</li>
+                    </ul>
+                    
+                    <h3>5.3 Game Malfunctions</h3>
+                    <p>In the event of a game malfunction, all affected bets will be void. We will investigate all reported malfunctions and take appropriate action to resolve the issue fairly.</p>
+                    
+                    <div class="warning-box">
+                        <p><strong>Important:</strong> Any attempt to exploit game malfunctions or system errors will result in immediate account suspension and confiscation of funds.</p>
+                    </div>
+                </div>
+
+                <!-- Section 6: Bonuses & Promotions -->
+                <div class="terms-section" id="bonuses" data-aos="fade-up">
+                    <h2>6. Bonuses & Promotions</h2>
+                    
+                    <h3>6.1 Bonus Eligibility</h3>
+                    <p>Bonuses and promotions are offered at our discretion and may be subject to specific terms and conditions. Players must opt-in to receive bonuses and meet all eligibility requirements.</p>
+                    
+                    <h3>6.2 Wagering Requirements</h3>
+                    <p>All bonuses come with wagering requirements that must be met before withdrawal. These requirements are calculated based on the bonus amount and vary by promotion type.</p>
+                    
+                    <h3>6.3 Bonus Abuse</h3>
+                    <p>We reserve the right to cancel bonuses and confiscate winnings if we detect bonus abuse, including but not limited to:</p>
+                    <ul>
+                        <li>Creating multiple accounts to claim bonuses</li>
+                        <li>Using irregular betting patterns</li>
+                        <li>Claiming bonuses without intent to play</li>
+                        <li>Collaborating with other players to abuse bonuses</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>VIP Rewards:</strong> Our VIP program offers exclusive bonuses, personal account managers, and enhanced withdrawal limits for our most loyal players.</p>
+                    </div>
+                </div>
+
+                <!-- Section 7: Responsible Gaming -->
+                <div class="terms-section" id="responsible" data-aos="fade-up">
+                    <h2>7. Responsible Gaming</h2>
+                    
+                    <h3>7.1 Our Commitment</h3>
+                    <p>We are committed to promoting responsible gaming and providing a safe environment for all players. We offer various tools and resources to help you maintain control over your gaming activities.</p>
+                    
+                    <h3>7.2 Self-Exclusion</h3>
+                    <p>Players can self-exclude from our services for a specified period or permanently. During self-exclusion, you will not be able to access your account or create new accounts.</p>
+                    
+                    <h3>7.3 Deposit Limits</h3>
+                    <p>You can set daily, weekly, or monthly deposit limits on your account. These limits can be decreased immediately but increases require a 24-hour cooling-off period.</p>
+                    
+                    <h3>7.4 Problem Gambling Support</h3>
+                    <p>If you're concerned about your gambling habits, we provide links to professional organizations that offer support and counseling services.</p>
+                    
+                    <div class="warning-box">
+                        <p><strong>Seek Help:</strong> If you believe you have a gambling problem, please contact our support team or visit organizations like GamCare, Gamblers Anonymous, or your local gambling addiction support service.</p>
+                    </div>
+                </div>
+
+                <!-- Section 8: Privacy & Security -->
+                <div class="terms-section" id="privacy" data-aos="fade-up">
+                    <h2>8. Privacy & Security</h2>
+                    
+                    <h3>8.1 Data Protection</h3>
+                    <p>We implement industry-standard security measures to protect your personal and financial information. All data transmissions are encrypted using SSL technology.</p>
+                    
+                    <h3>8.2 Information Collection</h3>
+                    <p>We collect and process personal information necessary for providing our services, including account management, payment processing, and regulatory compliance.</p>
+                    
+                    <h3>8.3 Data Sharing</h3>
+                    <p>We do not sell or share your personal information with third parties except as required by law or for essential service operations such as payment processing.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Your Rights:</strong> You have the right to access, correct, or delete your personal information. Contact our support team for assistance with data requests.</p>
+                    </div>
+                </div>
+
+                <!-- Section 9: Intellectual Property -->
+                <div class="terms-section" id="intellectual" data-aos="fade-up">
+                    <h2>9. Intellectual Property</h2>
+                    
+                    <p>All content on our platform, including games, software, graphics, logos, and text, is protected by intellectual property laws. You may not reproduce, distribute, or modify any content without our express written permission.</p>
+                    
+                    <h3>9.1 Permitted Use</h3>
+                    <p>You may use our platform solely for personal, non-commercial entertainment purposes. Any commercial use is strictly prohibited.</p>
+                    
+                    <h3>9.2 Trademark Rights</h3>
+                    <p>LV33 Casino and all related marks are trademarks of our company. Unauthorized use of our trademarks is prohibited.</p>
+                </div>
+
+                <!-- Section 10: Limitation of Liability -->
+                <div class="terms-section" id="limitation" data-aos="fade-up">
+                    <h2>10. Limitation of Liability</h2>
+                    
+                    <p>Our liability is limited to the maximum extent permitted by law. We are not liable for indirect, incidental, or consequential damages arising from your use of our services.</p>
+                    
+                    <h3>10.1 Service Availability</h3>
+                    <p>We strive to maintain continuous service availability but cannot guarantee uninterrupted access. We are not liable for losses due to service interruptions or technical issues.</p>
+                    
+                    <h3>10.2 Third-Party Links</h3>
+                    <p>Our platform may contain links to third-party websites. We are not responsible for the content or practices of these external sites.</p>
+                    
+                    <div class="warning-box">
+                        <p><strong>Disclaimer:</strong> Gaming involves risk, and you may lose money. We are not responsible for gambling losses or addiction-related issues.</p>
+                    </div>
+                </div>
+
+                <!-- Section 11: Account Termination -->
+                <div class="terms-section" id="termination" data-aos="fade-up">
+                    <h2>11. Account Termination</h2>
+                    
+                    <h3>11.1 Voluntary Termination</h3>
+                    <p>You may close your account at any time by contacting our support team. Upon closure, any remaining balance will be returned to you after verification.</p>
+                    
+                    <h3>11.2 Involuntary Termination</h3>
+                    <p>We may terminate your account if you breach these Terms, engage in prohibited activities, or for regulatory reasons. In such cases, we reserve the right to confiscate funds obtained through violations.</p>
+                    
+                    <h3>11.3 Account Dormancy</h3>
+                    <p>Accounts inactive for 12 months may be charged a dormancy fee. We will attempt to contact you before applying any fees.</p>
+                </div>
+
+                <!-- Section 12: Changes to Terms -->
+                <div class="terms-section" id="changes" data-aos="fade-up">
+                    <h2>12. Changes to Terms</h2>
+                    
+                    <p>We reserve the right to modify these Terms at any time. Changes will be posted on our website and communicated to registered users. Continued use of our services after changes constitutes acceptance of the new Terms.</p>
+                    
+                    <h3>12.1 Notification</h3>
+                    <p>Material changes to these Terms will be communicated via email and website notification at least 30 days before taking effect.</p>
+                    
+                    <h3>12.2 Acceptance</h3>
+                    <p>By continuing to use our services after changes take effect, you agree to be bound by the updated Terms.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Stay Informed:</strong> We recommend reviewing these Terms periodically to stay informed of any changes that may affect your use of our services.</p>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="terms-section" data-aos="fade-up">
+                    <h2>Contact Information</h2>
+                    <p>If you have any questions about these Terms and Conditions, please contact us:</p>
+                    <ul>
+                        <li><strong>Email:</strong> support@lv33casino.com</li>
+                        <li><strong>Phone:</strong> +1-800-VEGAS-24</li>
+                        <li><strong>Live Chat:</strong> Available 24/7 on our website</li>
+                        <li><strong>Address:</strong> [Your Company Address]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Last Updated -->
+            <div class="last-updated" data-aos="fade-up">
+                <p><strong>Last Updated:</strong> January 15, 2025</p>
+                <p>Version 2.1 - These terms are effective immediately upon posting</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LV33 Casino</h3>
+                    <p>Experience the ultimate online gaming destination with premium games, massive jackpots, and unparalleled service.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="promotion.html">Promotions</a></li>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="gaming.html">Responsible Gaming</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terms_&_condition.html">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="gaming.html">Responsible Gaming</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Licensing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="payment.html">Payment Methods</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 LV33 Casino. All rights reserved. | 18+ Only | Gamble Responsibly | Licensed & Regulated</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(255, 215, 0, 0.4)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(255, 215, 0, 0.3)';
+            }
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        // Add mobile menu styles
+        const mobileStyles = document.createElement('style');
+        mobileStyles.textContent = `
+            @media (max-width: 768px) {
+                .nav-menu {
+                    position: fixed;
+                    top: 80px;
+                    left: -100%;
+                    width: 100%;
+                    height: calc(100vh - 80px);
+                    background: rgba(0, 0, 0, 0.95);
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding-top: 50px;
+                    transition: left 0.3s ease;
+                }
+                
+                .nav-menu.active {
+                    left: 0;
+                }
+                
+                .nav-menu a {
+                    font-size: 1.5rem;
+                    margin: 20px 0;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                }
+                
+                .nav-menu a:hover {
+                    background: rgba(255, 215, 0, 0.1);
+                }
+            }
+        `;
+        document.head.appendChild(mobileStyles);
+
+        // Highlight current section in table of contents
+        function highlightCurrentSection() {
+            const sections = document.querySelectorAll('.terms-section[id]');
+            const tocLinks = document.querySelectorAll('.toc a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    currentSection = section.id;
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Add active state styles for TOC
+        const tocStyles = document.createElement('style');
+        tocStyles.textContent = `
+            .toc a.active {
+                background: rgba(255, 215, 0, 0.2);
+                color: #ffd700;
+                transform: translateX(10px);
+                border-left: 3px solid #ffd700;
+            }
+        `;
+        document.head.appendChild(tocStyles);
+
+        // Listen for scroll events to highlight current section
+        window.addEventListener('scroll', highlightCurrentSection);
+        
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Add search functionality for terms
+        function createSearchBox() {
+            const searchBox = document.createElement('div');
+            searchBox.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: rgba(0, 0, 0, 0.9);
+                    padding: 15px;
+                    border-radius: 10px;
+                    border: 1px solid rgba(255, 215, 0, 0.3);
+                    z-index: 999;
+                    display: none;
+                " id="searchBox">
+                    <input type="text" placeholder="Search terms..." style="
+                        background: rgba(255, 255, 255, 0.1);
+                        border: 1px solid rgba(255, 215, 0, 0.3);
+                        color: white;
+                        padding: 8px 12px;
+                        border-radius: 5px;
+                        width: 200px;
+                    " id="searchInput">
+                    <button onclick="searchTerms()" style="
+                        background: linear-gradient(45deg, #ffd700, #ff6b6b);
+                        border: none;
+                        color: black;
+                        padding: 8px 12px;
+                        border-radius: 5px;
+                        margin-left: 5px;
+                        cursor: pointer;
+                    ">Search</button>
+                </div>
+            `;
+            document.body.appendChild(searchBox);
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+F to open search
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                const searchBox = document.getElementById('searchBox');
+                if (searchBox) {
+                    searchBox.style.display = searchBox.style.display === 'none' ? 'block' : 'none';
+                    if (searchBox.style.display === 'block') {
+                        document.getElementById('searchInput').focus();
+                    }
+                }
+            }
+            
+            // Escape to close search
+            if (e.key === 'Escape') {
+                const searchBox = document.getElementById('searchBox');
+                if (searchBox) {
+                    searchBox.style.display = 'none';
+                }
+            }
+        });
+
+        // Initialize search box
+        createSearchBox();
+
+        // Search function
+        function searchTerms() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('.terms-section');
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.style.background = 'rgba(255, 215, 0, 0.1)';
+                    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        section.style.background = 'rgba(255, 255, 255, 0.05)';
+                    }, 3000);
+                }
+            });
+        }
+
+        // Add print functionality
+        function addPrintButton() {
+            const printBtn = document.createElement('button');
+            printBtn.innerHTML = '<i class="fas fa-print"></i> Print Terms';
+            printBtn.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                right: 30px;
+                background: linear-gradient(45deg, #ffd700, #ff6b6b);
+                color: black;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+                transition: all 0.3s ease;
+                z-index: 999;
+            `;
+            
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+            
+            printBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 6px 20px rgba(255, 215, 0, 0.5)';
+            });
+            
+            printBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 15px rgba(255, 215, 0, 0.3)';
+            });
+            
+            document.body.appendChild(printBtn);
+        }
+
+        // Add print styles
+        const printStyles = document.createElement('style');
+        printStyles.textContent = `
+            @media print {
+                .header, .footer, .scroll-top, button {
+                    display: none !important;
+                }
+                
+                body {
+                    background: white !important;
+                    color: black !important;
+                }
+                
+                .terms-content {
+                    background: white !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+                
+                .page-header {
+                    background: white !important;
+                    color: black !important;
+                }
+                
+                .main-content {
+                    margin-top: 0 !important;
+                }
+                
+                .terms-section h2 {
+                    color: black !important;
+                }
+                
+                .terms-section h3 {
+                    color: #666 !important;
+                }
+                
+                .highlight-box, .warning-box {
+                    border: 1px solid #ccc !important;
+                    background: #f9f9f9 !important;
+                }
+            }
+        `;
+        document.head.appendChild(printStyles);
+
+        // Initialize print button
+        addPrintButton();
+
+        // Add reading progress indicator
+        function addProgressBar() {
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(90deg, #ffd700, #ff6b6b);
+                z-index: 9999;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+            
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                const scrollTop = window.pageYOffset;
+                const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+                
+                progressBar.style.width = scrollPercent + '%';
+            });
+        }
+
+        // Initialize progress bar
+        addProgressBar();
+    </script>
+</body>
+</html>

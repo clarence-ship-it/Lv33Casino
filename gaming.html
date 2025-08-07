@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsible Gaming - LV33 Casino</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 35, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+.back-btn {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 60px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-section h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .content-section h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+        }
+
+        .content-section p {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-section li {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .content-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #fff;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #fff;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .tool-card i {
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .tool-card h3 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .tool-card p {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #1a1a2e;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 15, 35, 0.95);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p, .footer-section li {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            color: #e0e0e0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation effects */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images-1.png" alt="LV33 Logo" style="height: 45px; vertical-align: middle;">
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="currency.html">Vlogger/Ambasador Program</a>
+                <a href="promotion.html">Promotions</a>
+                <a href="News.html">News</a>
+                <a href="deposit.html">How to Deposit/Withdraw</a>
+                <a href="rebates.html">Rebates & Bonuses</a>
+                <a href="affiliate.html">Affiliate Program</a>
+                <a href="video.html">Video Center</a>
+                <a href="download.html">Download App</a>
+                <a href="live_chat.html">Live Chat</a>
+            </nav>
+             <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <button class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header fade-in-up">
+                <h1>Responsible Gaming</h1>
+                <p>Your safety and wellbeing are our top priorities. Learn about our commitment to responsible gaming practices.</p>
+            </div>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-shield-alt"></i> Our Commitment</h2>
+                <p>At LV33 Casino, we are committed to providing a safe and responsible gaming environment. We believe that gaming should be entertaining, exciting, and above all, responsible. We have implemented various measures and tools to ensure that our players can enjoy their gaming experience while maintaining control.</p>
+                
+                <div class="warning-box">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+                    <p>Gambling can be addictive. Please play responsibly and within your means. If you feel that your gaming is becoming problematic, seek help immediately.</p>
+                </div>
+            </section>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-user-shield"></i> Self-Assessment</h2>
+                <p>Ask yourself these important questions to evaluate your gaming habits:</p>
+                <ul>
+                    <li>Do you gamble more than you can afford to lose?</li>
+                    <li>Do you need to gamble with increasing amounts of money to get the same thrill?</li>
+                    <li>Have you tried to cut down or stop gambling but been unable to do so?</li>
+                    <li>Do you feel restless or irritable when trying to cut down on gambling?</li>
+                    <li>Do you gamble to escape from problems or relieve anxiety or depression?</li>
+                    <li>Have you lied to family members or others to conceal your gambling activities?</li>
+                    <li>Have you committed illegal acts to finance your gambling?</li>
+                    <li>Have you risked or lost important relationships, jobs, or opportunities because of gambling?</li>
+                </ul>
+                <p>If you answered "yes" to several of these questions, you may have a gambling problem and should consider seeking help.</p>
+            </section>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-tools"></i> Responsible Gaming Tools</h2>
+                <p>We provide several tools to help you maintain control over your gaming:</p>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Time Limits</h3>
+                        <p>Set daily, weekly, or monthly time limits for your gaming sessions.</p>
+                        <a href="#" class="btn-primary">Set Time Limits</a>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3>Deposit Limits</h3>
+                        <p>Control your spending by setting deposit limits that suit your budget.</p>
+                        <a href="#" class="btn-primary">Set Deposit Limits</a>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Loss Limits</h3>
+                        <p>Protect yourself by setting maximum loss limits for your gaming sessions.</p>
+                        <a href="#" class="btn-primary">Set Loss Limits</a>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <i class="fas fa-pause"></i>
+                        <h3>Cool-Off Period</h3>
+                        <p>Take a break from gaming with our cool-off period feature.</p>
+                        <a href="#" class="btn-primary">Request Cool-Off</a>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <i class="fas fa-ban"></i>
+                        <h3>Self-Exclusion</h3>
+                        <p>Temporarily or permanently exclude yourself from all gaming activities.</p>
+                        <a href="#" class="btn-primary">Self-Exclude</a>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <i class="fas fa-history"></i>
+                        <h3>Gaming History</h3>
+                        <p>Review your complete gaming history and spending patterns.</p>
+                        <a href="#" class="btn-primary">View History</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-balance-scale"></i> Underage Gaming Prevention</h2>
+                <p>LV33 Casino is committed to preventing underage gambling. We have strict policies in place:</p>
+                <ul>
+                    <li>All players must be 18 years or older (21+ in some jurisdictions)</li>
+                    <li>Age verification is required during registration</li>
+                    <li>Regular audits ensure compliance with age restrictions</li>
+                    <li>We use advanced technology to detect and prevent underage access</li>
+                    <li>Parents can request IP blocking for their household</li>
+                </ul>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-info-circle"></i> For Parents</h3>
+                    <p>If you're concerned about a minor's access to gambling sites, consider using parental control software or contact us for IP blocking assistance.</p>
+                </div>
+            </section>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-hands-helping"></i> Getting Help</h2>
+                <p>If you or someone you know is struggling with gambling addiction, help is available:</p>
+                
+                <h3>Professional Organizations</h3>
+                <ul>
+                    <li><strong>Gamblers Anonymous:</strong> Free support groups worldwide</li>
+                    <li><strong>National Problem Gambling Helpline:</strong> 1-800-522-4700</li>
+                    <li><strong>GamCare:</strong> UK-based support and counseling</li>
+                    <li><strong>Gambling Therapy:</strong> Global online support community</li>
+                    <li><strong>BeGambleAware:</strong> Information and support resources</li>
+                </ul>
+                
+                <h3>Warning Signs of Problem Gambling</h3>
+                <ul>
+                    <li>Spending more money than intended</li>
+                    <li>Neglecting responsibilities to gamble</li>
+                    <li>Borrowing money to gamble</li>
+                    <li>Feeling anxious or depressed about gambling</li>
+                    <li>Lying about gambling activities</li>
+                    <li>Chasing losses with bigger bets</li>
+                </ul>
+            </section>
+
+            <section class="content-section fade-in-up">
+                <h2><i class="fas fa-gavel"></i> Our Policies</h2>
+                <p>LV33 Casino maintains strict responsible gaming policies:</p>
+                <ul>
+                    <li>All staff receive responsible gaming training</li>
+                    <li>We actively promote responsible gaming practices</li>
+                    <li>Marketing materials include responsible gaming messages</li>
+                    <li>We support research into gambling addiction</li>
+                    <li>Regular policy reviews ensure best practices</li>
+                    <li>Collaboration with responsible gaming organizations</li>
+                </ul>
+            </section>
+
+            <div class="contact-info fade-in-up">
+                <h3><i class="fas fa-phone"></i> Need Immediate Help?</h3>
+                <p>Our responsible gaming team is available 24/7</p>
+                <p><strong>Email:</strong> <a href="mailto:help@lv33casino.com">help@lv33casino.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+1-800-HELP-NOW">+1-800-HELP-NOW</a></p>
+                <p><strong>Live Chat:</strong> <a href="live_chat.html">Click here for instant support</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LV33 Casino</h3>
+                    <p>Experience the ultimate online gaming destination with premium games, massive jackpots, and responsible gaming practices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="promotion.html">Promotions</a></li>
+                        <li><a href="deposit.html">Deposit/Withdraw</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="help_center.html">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="payment.html">Payment Methods</a></li>
+                        <li><a href="responsible_gaming.html">Responsible Gaming</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> support@lv33casino.com</p>
+                    <p><i class="fas fa-phone"></i> +1-800-LV33-24</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Customer Support</p>
+                    <p><i class="fas fa-shield-alt"></i> Licensed & Regulated</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 LV33 Casino. All rights reserved. | 18+ Only | Gamble Responsibly</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add hover effects to tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click effects to buttons
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    left: ${e.offsetX}px;
+                    top: ${e.offsetY}px;
+                    width: 20px;
+                    height: 20px;
+                    margin-left: -10px;
+                    margin-top: -10px;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

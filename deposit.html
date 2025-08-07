@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LV33 - How to Deposit & Withdraw</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+          .header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+.nav-menu a.active {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 1px;
+}
+
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .back-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+ /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffd700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            color: #ccc;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Payment Methods Grid */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .payment-card:hover::before {
+            left: 100%;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .payment-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .payment-card p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-details span {
+            font-weight: bold;
+        }
+
+        .payment-details .value {
+            color: #ffd700;
+        }
+
+        /* Step Guide */
+        .step-guide {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin: 1rem 0;
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        /* Important Notes */
+        .important-notes {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 4rem;
+        }
+
+        .important-notes h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .important-notes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .important-notes li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .important-notes li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: #ffd700;
+            margin: 0;
+        }
+
+        .faq-toggle {
+            color: #ffd700;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Support Section */
+        .support-section {
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .support-section h2 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .support-section p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .support-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+        }
+
+        .btn-secondary:hover {
+            background: #ffd700;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(15, 15, 26, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f0f1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top: 3px solid #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images-1.png" alt="LV33 Logo" style="height: 45px; vertical-align: middle;">
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="currency.html">Vlogger/Ambasador Program</a>
+                <a href="promotion.html">Promotions</a>
+                <a href="News.html">News</a>
+                <a href="deposit.html">How to Deposit/Withdraw</a>
+                <a href="rebates.html">Rebates & Bonuses</a>
+                <a href="affiliate.html">Affiliate Program</a>
+                <a href="video.html">Video Center</a>
+                <a href="download.html">Download App</a>
+                <a href="live_chat.html">Live Chat</a>
+            </nav>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <button class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 data-aos="fade-up">Deposit & Withdraw Guide</h1>
+                <p data-aos="fade-up" data-aos-delay="200">Fast, secure, and convenient banking options for your gaming experience</p>
+            </div>
+        </section>
+
+        <!-- Payment Methods Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Payment Methods</h2>
+                    <p>Choose from our wide range of secure payment options designed for your convenience</p>
+                </div>
+                
+                <div class="payment-grid">
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-credit-card payment-icon"></i>
+                        <h3>Credit/Debit Cards</h3>
+                        <p>Visa, MasterCard, American Express accepted worldwide</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$10</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$10,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">Instant</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fab fa-bitcoin payment-icon"></i>
+                        <h3>Cryptocurrencies</h3>
+                        <p>Bitcoin, Ethereum, Litecoin, and other major cryptocurrencies</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$25</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$50,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">5-30 mins</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-wallet payment-icon"></i>
+                        <h3>E-Wallets</h3>
+                        <p>PayPal, Skrill, Neteller, and other popular e-wallet services</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$15</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$25,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">Instant</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="fas fa-university payment-icon"></i>
+                        <h3>Bank Transfer</h3>
+                        <p>Direct bank transfers and wire transfers available</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$50</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$100,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">1-3 days</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="500">
+                        <i class="fas fa-mobile-alt payment-icon"></i>
+                        <h3>Mobile Payments</h3>
+                        <p>Apple Pay, Google Pay, Samsung Pay for mobile users</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$10</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$5,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">Instant</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="600">
+                        <i class="fas fa-money-check payment-icon"></i>
+                        <h3>Prepaid Cards</h3>
+                        <p>Paysafecard, Neosurf, and other prepaid voucher systems</p>
+                        <div class="payment-details">
+                            <span>Min Deposit:</span>
+                            <span class="value">$10</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Max Deposit:</span>
+                            <span class="value">$1,000</span>
+                        </div>
+                        <div class="payment-details">
+                            <span>Processing Time:</span>
+                            <span class="value">Instant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deposit Guide -->
+        <section class="section">
+            <div class="container">
+                <div class="step-guide" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>How to Make a Deposit</h2>
+                        <p>Follow these simple steps to fund your account and start playing</p>
+                    </div>
+                    
+                    <div class="steps-container">
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="step-number">1</div>
+                            <i class="fas fa-sign-in-alt step-icon"></i>
+                            <h3>Login to Your Account</h3>
+                            <p>Access your LV33 account using your registered credentials</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="step-number">2</div>
+                            <i class="fas fa-plus-circle step-icon"></i>
+                            <h3>Click Deposit</h3>
+                            <p>Navigate to the cashier section and click on "Deposit"</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="step-number">3</div>
+                            <i class="fas fa-credit-card step-icon"></i>
+                            <h3>Choose Payment Method</h3>
+                            <p>Select your preferred payment method from available options</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="step-number">4</div>
+                            <i class="fas fa-dollar-sign step-icon"></i>
+                            <h3>Enter Amount</h3>
+                            <p>Input the amount you wish to deposit (min/max limits apply)</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="500">
+                            <div class="step-number">5</div>
+                            <i class="fas fa-check-circle step-icon"></i>
+                            <h3>Complete Transaction</h3>
+                            <p>Review details and confirm your deposit transaction</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="600">
+                            <div class="step-number">6</div>
+                            <i class="fas fa-play step-icon"></i>
+                            <h3>Start Playing</h3>
+                            <p>Your funds will be available instantly to start gaming</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Withdrawal Guide -->
+        <section class="section">
+            <div class="container">
+                <div class="step-guide" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>How to Make a Withdrawal</h2>
+                        <p>Quick and secure withdrawal process to get your winnings</p>
+                    </div>
+                    
+                    <div class="steps-container">
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="step-number">1</div>
+                            <i class="fas fa-user-check step-icon"></i>
+                            <h3>Account Verification</h3>
+                            <p>Ensure your account is fully verified with required documents</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="step-number">2</div>
+                            <i class="fas fa-money-bill-wave step-icon"></i>
+                            <h3>Go to Withdrawal</h3>
+                            <p>Navigate to cashier and select "Withdrawal" option</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="step-number">3</div>
+                            <i class="fas fa-university step-icon"></i>
+                            <h3>Select Method</h3>
+                            <p>Choose your preferred withdrawal method</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="step-number">4</div>
+                            <i class="fas fa-calculator step-icon"></i>
+                            <h3>Enter Amount</h3>
+                            <p>Specify the amount you wish to withdraw</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="500">
+                            <div class="step-number">5</div>
+                            <i class="fas fa-paper-plane step-icon"></i>
+                            <h3>Submit Request</h3>
+                            <p>Review and submit your withdrawal request</p>
+                        </div>
+
+                        <div class="step-card" data-aos="fade-up" data-aos-delay="600">
+                            <div class="step-number">6</div>
+                            <i class="fas fa-clock step-icon"></i>
+                            <h3>Processing Time</h3>
+                            <p>Wait for processing (usually 24-72 hours)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Important Notes -->
+        <section class="section">
+            <div class="container">
+                <div class="important-notes" data-aos="fade-up">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Information</h3>
+                    <ul>
+                        <li>All deposits are processed instantly except bank transfers</li>
+                        <li>Withdrawals require account verification before first payout</li>
+                        <li>Minimum withdrawal amount is $50 for most methods</li>
+                        <li>Cryptocurrency withdrawals are processed fastest</li>
+                        <li>Some payment methods may have fees (clearly displayed)</li>
+                        <li>Bonus funds have wagering requirements before withdrawal</li>
+                        <li>Contact support for any payment-related issues</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container">
+                <div class="faq-section" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Frequently Asked Questions</h2>
+                        <p>Find answers to common questions about deposits and withdrawals</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How long do deposits take to process?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Most deposits are processed instantly, including credit cards, e-wallets, and cryptocurrencies. Bank transfers may take 1-3 business days to reflect in your account.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What documents do I need for account verification?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You'll need a government-issued ID (passport or driver's license), proof of address (utility bill or bank statement), and proof of payment method (bank statement or card photo).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Are there any fees for deposits or withdrawals?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>LV33 doesn't charge fees for most deposits and withdrawals. However, some payment providers may charge their own fees, which will be clearly displayed before you complete the transaction.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What's the maximum amount I can withdraw per day?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Standard withdrawal limits are $5,000 per day and $25,000 per month. VIP players may have higher limits. Contact support to discuss increasing your limits.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I use different payment methods for deposits and withdrawals?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For security reasons, we recommend using the same method for both deposits and withdrawals. However, alternative methods may be available after account verification.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Why was my withdrawal request rejected?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Common reasons include incomplete account verification, insufficient funds, active bonus wagering requirements, or incorrect payment details. Contact support for specific details.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is it safe to deposit money on LV33?</h3>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, LV33 uses advanced SSL encryption, secure payment processors, and follows strict security protocols to protect your financial information and transactions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Features -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Security & Protection</h2>
+                    <p>Your financial security is our top priority</p>
+                </div>
+                
+                <div class="payment-grid">
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-shield-alt payment-icon"></i>
+                        <h3>SSL Encryption</h3>
+                        <p>All transactions are protected with bank-level 256-bit SSL encryption</p>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-lock payment-icon"></i>
+                        <h3>Secure Payments</h3>
+                        <p>Partnership with trusted payment processors worldwide</p>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-user-shield payment-icon"></i>
+                        <h3>Account Protection</h3>
+                        <p>Two-factor authentication and advanced fraud detection</p>
+                    </div>
+
+                    <div class="payment-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="fas fa-certificate payment-icon"></i>
+                        <h3>Licensed & Regulated</h3>
+                        <p>Fully licensed and regulated by gaming authorities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="section">
+            <div class="container">
+                <div class="support-section" data-aos="fade-up">
+                    <h2>Need Help with Payments?</h2>
+                    <p>Our expert support team is available 24/7 to assist with any payment-related questions or issues</p>
+                    <div class="support-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-comments"></i>
+                            Live Chat Support
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i>
+                            Email Support
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-phone"></i>
+                            Call Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LV33 Casino</h3>
+                    <p>Experience the ultimate online gaming destination with premium games, massive jackpots, and unparalleled service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#games">Games</a></li>
+                        <li><a href="promotions.html">Promotions</a></li>
+                        <li><a href="index.html#testimonials">Reviews</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="#">VIP Program</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Support</h3>
+                       <ul>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="payment.html">Payment Methods</a></li>
+                        <li><a href="gaming.html">Responsible Gaming</a></li>
+                        <li><a href="terms_&_condition.html">Terms & Conditions</a></li>
+                        <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> support@lv33.com</p>
+                    <p><i class="fas fa-phone"></i> +1-800-LV33-24</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Customer Support</p>
+                    <p><i class="fas fa-shield-alt"></i> Licensed & Regulated</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 LV33 Casino. All rights reserved. | 18+ Only | Gamble Responsibly</p>
+            </div>
+        </div>
+    </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                
+                // Close other open FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ
+                faqItem.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            setTimeout(() => {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add hover effect to payment cards
+        document.querySelectorAll('.payment-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add pulse animation to important elements
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.classList.add('pulse');
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.classList.remove('pulse');
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add sparkle effect to buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.cssText = `
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background: #ffd700;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: sparkle-burst 0.6s ease-out forwards;
+                `;
+                
+                this.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 600);
+            });
+        });
+
+        // Add CSS for sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle-burst {
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                100% { transform: scale(3) rotate(180deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add scroll reveal animation
+        // Add scroll reveal animation (only for payment methods section)
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.5;
+    
+    document.querySelectorAll('.payment-grid:first-of-type .payment-card').forEach((card, index) => {
+        const speed = 0.1 + (index * 0.05);
+        card.style.transform = `translateY(${rate * speed}px)`;
+    });
+});
+    </script>
+
+        <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname.toLowerCase();
+  const navLinks = document.querySelectorAll('.nav-menu a');
+
+  navLinks.forEach(link => {
+    const linkPath = link.getAttribute('href').toLowerCase();
+    if (currentPath.includes(linkPath) && linkPath !== "#") {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

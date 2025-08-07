@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - News Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .toast {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #3498db;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <button id="sidebarToggle" class="md:hidden text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-800 ml-4 md:ml-0">Admin Panel – News Control</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Welcome, Admin</span>
+                    <i class="fas fa-user-circle text-2xl text-gray-600"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-slate-800 text-white transform -translate-x-full md:translate-x-0 sidebar-transition z-40">
+        <div class="p-6">
+            <nav class="space-y-2">
+                <a href="#" id="dashboardLink" class="flex items-center space-x-3 text-white hover:bg-slate-700 rounded-lg p-3 transition-colors nav-item active">
+                    <i class="fas fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" id="postNewsLink" class="flex items-center space-x-3 text-white hover:bg-slate-700 rounded-lg p-3 transition-colors nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Post News</span>
+                </a>
+                <a href="#" id="viewNewsLink" class="flex items-center space-x-3 text-white hover:bg-slate-700 rounded-lg p-3 transition-colors nav-item">
+                    <i class="fas fa-newspaper"></i>
+                    <span>View News</span>
+                </a>
+                <a href="#" id="postVideoLink" class="flex items-center space-x-3 text-white hover:bg-slate-700 rounded-lg p-3 transition-colors nav-item">
+  <i class="fas fa-video"></i>
+  <span>Post Video</span>
+</a>
+<a href="#" id="viewVideoLink" class="flex items-center space-x-3 text-white hover:bg-slate-700 rounded-lg p-3 transition-colors nav-item">
+  <i class="fas fa-play-circle"></i>
+  <span>View Videos</span>
+</a>
+
+                <button onclick="resetRegCount()" class="flex items-center space-x-3 text-white hover:bg-red-600 rounded-lg p-3 transition-colors w-full text-left">
+    <i class="fas fa-sync-alt"></i>
+    <span>Reset Reg Count</span>
+</button>
+
+            </nav>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden hidden"></div>
+
+    <!-- Main Content -->
+    <main class="md:ml-64 pt-16 min-h-screen">
+        <div class="p-6">
+            <!-- Dashboard Content -->
+            <div id="dashboardContent" class="content-section">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">Dashboard Overview</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Total News</p>
+                                    <p class="text-2xl font-bold text-gray-800" id="totalNews">0</p>
+                                </div>
+                                <i class="fas fa-newspaper text-3xl text-blue-500"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Published Today</p>
+                                    <p class="text-2xl font-bold text-gray-800" id="todayNews">0</p>
+                                </div>
+                                <i class="fas fa-calendar-day text-3xl text-green-500"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Status</p>
+                                    <p class="text-2xl font-bold text-gray-800">Active</p>
+                                </div>
+                                <i class="fas fa-check-circle text-3xl text-purple-500"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
+                        <div id="recentActivity" class="space-y-3">
+                            <div class="loading mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Post News Content -->
+            <div id="postNewsContent" class="content-section hidden">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">Post New Article</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <form id="newsForm" class="space-y-6">
+                            <div>
+                                <label for="newsTitle" class="block text-sm font-medium text-gray-700 mb-2">News Title</label>
+                                <input type="text" id="newsTitle" name="newsTitle" required 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                       placeholder="Enter news title...">
+                            </div>
+
+                            <div>
+                                <label for="newsDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                <textarea id="newsDescription" name="newsDescription" required rows="4"
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                          placeholder="Enter news description..."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="newsImage" class="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>
+                                <input type="file" id="newsImage" name="newsImage" accept="image/*"
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <div id="imagePreview" class="mt-4 hidden">
+                                    <p class="text-sm text-gray-600 mb-2">Image Preview:</p>
+                                    <img id="previewImg" src="" alt="Preview" class="max-w-xs max-h-48 rounded-lg shadow-md">
+                                </div>
+                                <div id="uploadProgress" class="mt-2 hidden">
+                                    <div class="loading"></div>
+                                    <span class="ml-2 text-sm text-gray-600">Uploading...</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="articleLink" class="block text-sm font-medium text-gray-700 mb-2">Article Link</label>
+                                <input type="url" id="articleLink" name="articleLink" required
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                       placeholder="https://example.com/article">
+                            </div>
+
+                            <div>
+                                <label for="newsDateTime" class="block text-sm font-medium text-gray-700 mb-2">Date and Time</label>
+                                <input type="datetime-local" id="newsDateTime" name="newsDateTime" required
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            </div>
+
+                            <div class="flex justify-end space-x-4">
+                                <button type="button" id="cancelBtn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                    Cancel
+                                </button>
+                                <button type="submit" id="submitBtn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    Publish Article
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Video Content -->
+<div id="postVideoContent" class="content-section hidden">
+  <div class="fade-in">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Post New Video</h2>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <form id="videoForm" class="space-y-6">
+        <div>
+          <label for="videoTitle" class="block text-sm font-medium text-gray-700 mb-2">Video Title</label>
+          <input type="text" id="videoTitle" name="title" required class="w-full px-4 py-2 border rounded-lg">
+        </div>
+
+        <div>
+          <label for="videoDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+          <textarea id="videoDescription" name="description" rows="4" required class="w-full px-4 py-2 border rounded-lg"></textarea>
+        </div>
+
+        <div>
+          <label for="videoCategory" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+          <input type="text" id="videoCategory" name="category" required class="w-full px-4 py-2 border rounded-lg" placeholder="games,winners,live,promos">
+        </div>
+
+        <div>
+          <label for="videoDuration" class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+          <input type="text" id="videoDuration" name="duration" required class="w-full px-4 py-2 border rounded-lg">
+        </div>
+
+        <div>
+          <label for="videoEmbed" class="block text-sm font-medium text-gray-700 mb-2">YouTube Embed Link</label>
+          <input type="url" id="videoEmbed" name="embed_link" required class="w-full px-4 py-2 border rounded-lg" placeholder="https://www.youtube.com/embed/XYZ123">
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit Video</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- View Videos Content -->
+<div id="viewVideoContent" class="content-section hidden">
+  <div class="fade-in">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">All Submitted Videos</h2>
+    <div id="videoContainer" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Video cards will render here -->
+    </div>
+  </div>
+</div>
+
+            <!-- View News Content -->
+            <div id="viewNewsContent" class="content-section hidden">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">All News Articles</h2>
+                    
+                    <div id="newsContainer" class="space-y-6">
+                        <div class="loading mx-auto"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-20 right-6 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg toast transform translate-x-full hidden">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">News article published successfully!</span>
+        </div>
+    </div>
+<!-- Edit News Modal -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Edit News Article</h3>
+            </div>
+            
+            <div class="p-6">
+                <form id="editNewsForm" class="space-y-4">
+                    <input type="hidden" id="editNewsId" name="editNewsId">
+                    
+                    <div>
+                        <label for="editNewsTitle" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                        <input type="text" id="editNewsTitle" name="editNewsTitle" required 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="editNewsDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea id="editNewsDescription" name="editNewsDescription" required rows="4"
+                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="editArticleLink" class="block text-sm font-medium text-gray-700 mb-2">Article Link</label>
+                        <input type="url" id="editArticleLink" name="editArticleLink" required
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="editNewsDateTime" class="block text-sm font-medium text-gray-700 mb-2">Date and Time</label>
+                        <input type="datetime-local" id="editNewsDateTime" name="editNewsDateTime" required
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="editNewsImage" class="block text-sm font-medium text-gray-700 mb-2">Change Image (Optional)</label>
+                        <input type="file" id="editNewsImage" name="editNewsImage" accept="image/*"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <div id="editImagePreview" class="mt-2 hidden">
+                            <img id="editPreviewImg" src="" alt="Preview" class="max-w-xs max-h-32 rounded-lg shadow-md">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" id="cancelEditBtn" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" id="saveEditBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-save mr-2"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Video Modal -->
+<div id="editVideoModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 max-w-lg mx-auto mt-24 rounded shadow-lg">
+    <h3 class="text-xl font-bold mb-4">Edit Video</h3>
+    <form id="editVideoForm">
+      <input type="hidden" id="editVideoId" />
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Title</label>
+        <input type="text" id="editVideoTitle" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Description</label>
+        <textarea id="editVideoDescription" class="w-full px-3 py-2 border rounded"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Category</label>
+        <input type="text" id="editVideoCategory" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Duration</label>
+        <input type="text" id="editVideoDuration" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="mb-3">
+        <label class="block text-sm font-medium">Embed Link</label>
+        <input type="text" id="editVideoEmbed" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="flex justify-end space-x-3">
+        <button type="button" onclick="closeEditVideoModal()" class="px-4 py-2 border rounded">Cancel</button>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'api/news.php';
+        const UPLOAD_URL = 'api/upload.php';
+
+        
+        // Global variables
+        let newsData = [];
+        let currentSection = 'dashboard';
+        let uploadedImagePath = null;
+
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+        const newsForm = document.getElementById('newsForm');
+        const imageInput = document.getElementById('newsImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const toast = document.getElementById('toast');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default datetime
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('newsDateTime').value = now.toISOString().slice(0, 16);
+            
+            // Load initial data
+            loadNewsData();
+            updateDashboard();
+            loadRecentActivity();
+        });
+
+        // API Functions
+        async function apiRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showToast('Error connecting to server', 'error');
+                throw error;
+            }
+        }
+
+        async function loadNewsData() {
+            try {
+                const data = await apiRequest(API_BASE_URL + '?action=all');
+                newsData = data;
+                if (currentSection === 'viewNews') {
+                    loadNewsView();
+                }
+            } catch (error) {
+                console.error('Error loading news data:', error);
+            }
+        }
+
+        async function updateDashboard() {
+            try {
+                const stats = await apiRequest(API_BASE_URL + '?action=stats');
+                document.getElementById('totalNews').textContent = stats.total;
+                document.getElementById('todayNews').textContent = stats.today;
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+
+        async function loadRecentActivity() {
+            try {
+                const activities = await apiRequest(API_BASE_URL + '?action=recent');
+                const recentActivity = document.getElementById('recentActivity');
+                
+                if (activities.length === 0) {
+                    recentActivity.innerHTML = '<p class="text-gray-600">No recent activity</p>';
+                    return;
+                }
+                
+                recentActivity.innerHTML = activities.map(item => `
+                    <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <i class="fas fa-newspaper text-blue-500"></i>
+                        <div>
+                            <p class="font-medium">${item.title}</p>
+                            <p class="text-sm text-gray-600">${new Date(item.createdAt).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+            }
+        }
+
+        async function uploadImage(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                uploadProgress.classList.remove('hidden');
+                
+                const response = await fetch(UPLOAD_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                uploadProgress.classList.add('hidden');
+                
+                return result.path;
+            } catch (error) {
+                uploadProgress.classList.add('hidden');
+                console.error('Upload error:', error);
+                showToast('Error uploading image', 'error');
+                throw error;
+            }
+        }
+
+        async function saveNewsItem(newsItem) {
+            try {
+                const response = await apiRequest(API_BASE_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(newsItem)
+                });
+                
+                return response;
+            } catch (error) {
+                console.error('Error saving news item:', error);
+                throw error;
+            }
+        }
+
+        // Sidebar toggle
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Navigation
+        document.getElementById('dashboardLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('dashboard');
+        });
+
+        document.getElementById('postNewsLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('postNews');
+        });
+
+        document.getElementById('viewNewsLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('viewNews');
+        });
+
+        function showSection(section) {
+            // Hide all sections
+            contentSections.forEach(s => s.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(section + 'Content').classList.remove('hidden');
+            
+            // Update navigation
+            navItems.forEach(item => item.classList.remove('active', 'bg-slate-700'));
+            document.getElementById(section + 'Link').classList.add('active', 'bg-slate-700');
+            
+            currentSection = section;
+            
+            // Close mobile sidebar
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            }
+            
+            // Refresh data if needed
+            if (section === 'dashboard') {
+                updateDashboard();
+                loadRecentActivity();
+            } else if (section === 'viewNews') {
+                loadNewsView();
+            }
+        }
+
+        // Image preview and upload
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.classList.add('hidden');
+                uploadedImagePath = null;
+            }
+        });
+
+        // Form submission
+        newsForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loading mr-2"></div>Publishing...';
+            
+            try {
+                const formData = new FormData(newsForm);
+                
+                // Upload image if selected
+                if (imageInput.files[0]) {
+                    uploadedImagePath = await uploadImage(imageInput.files[0]);
+                }
+                
+                const newsItem = {
+                    title: formData.get('newsTitle'),
+                    description: formData.get('newsDescription'),
+                    link: formData.get('articleLink'),
+                    datetime: formData.get('newsDateTime'),
+                    image: uploadedImagePath
+                };
+                
+                // Save to database
+                await saveNewsItem(newsItem);
+                
+                // Show success message
+                showToast('News article published successfully!', 'success');
+                
+                // Reset form
+                newsForm.reset();
+                imagePreview.classList.add('hidden');
+                uploadedImagePath = null;
+                
+                // Update dashboard and reload data
+                await loadNewsData();
+                updateDashboard();
+                loadRecentActivity();
+                
+                // Redirect to news view after a short delay
+                setTimeout(() => {
+                    showSection('viewNews');
+                }, 2000);
+                
+            } catch (error) {
+                showToast('Error publishing article', 'error');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Publish Article';
+            }
+        });
+
+        // Cancel button
+        document.getElementById('cancelBtn').addEventListener('click', function() {
+            newsForm.reset();
+            imagePreview.classList.add('hidden');
+            uploadedImagePath = null;
+        });
+
+       function loadNewsView() {
+    const container = document.getElementById('newsContainer');
+    
+    if (newsData.length === 0) {
+        container.innerHTML = `
+            <div class="bg-white rounded-lg shadow-md p-8 text-center">
+                <i class="fas fa-newspaper text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">No News Articles</h3>
+                <p class="text-gray-500">Start by posting your first news article.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = newsData.map(item => `
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="md:flex">
+                ${item.image ? `
+                    <div class="md:w-1/3">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-48 md:h-full object-cover">
+                    </div>
+                ` : ''}
+                <div class="p-6 ${item.image ? 'md:w-2/3' : 'w-full'}">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-semibold text-gray-800">${item.title}</h3>
+                        <span class="text-sm text-gray-500">${new Date(item.datetime).toLocaleDateString()}</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">${item.description}</p>
+                    <div class="flex items-center justify-between">
+                        <a href="${item.link}" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                            <span>Read Full Article</span>
+                            <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm text-gray-500">
+                                <i class="fas fa-clock mr-1"></i>
+                                ${new Date(item.datetime).toLocaleTimeString()}
+                            </span>
+                            <button onclick="editNews(${item.id})" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteNews(${item.id})" class="text-red-600 hover:text-red-800 transition-colors">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+        async function deleteNews(id) {
+            if (!confirm('Are you sure you want to delete this news article?')) {
+                return;
+            }
+            
+            try {
+                await apiRequest(API_BASE_URL, {
+                    method: 'DELETE',
+                    body: JSON.stringify({ id: id })
+                });
+                
+                showToast('News article deleted successfully!', 'success');
+                
+                // Reload data
+                await loadNewsData();
+                updateDashboard();
+                loadRecentActivity();
+                
+            } catch (error) {
+                showToast('Error deleting article', 'error');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toastElement = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            // Set message and styling based on type
+            toastMessage.textContent = message;
+            
+            if (type === 'error') {
+                toastElement.classList.remove('bg-green-500');
+                toastElement.classList.add('bg-red-500');
+            } else {
+                toastElement.classList.remove('bg-red-500');
+                toastElement.classList.add('bg-green-500');
+            }
+            
+            // Show toast
+            toastElement.classList.remove('hidden', 'translate-x-full');
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toastElement.classList.add('translate-x-full');
+                setTimeout(() => {
+                    toastElement.classList.add('hidden');
+                }, 300);
+            }, 3000);
+        }
+
+        // Responsive handling
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        let editingNewsId = null;
+let editUploadedImagePath = null;
+
+function editNews(id) {
+    const news = newsData.find(item => item.id === id);
+    if (!news) return;
+    
+    editingNewsId = id;
+    
+    // Populate form fields
+    document.getElementById('editNewsId').value = news.id;
+    document.getElementById('editNewsTitle').value = news.title;
+    document.getElementById('editNewsDescription').value = news.description;
+    document.getElementById('editArticleLink').value = news.link;
+    
+    // Format datetime for input
+    const date = new Date(news.datetime);
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    document.getElementById('editNewsDateTime').value = date.toISOString().slice(0, 16);
+    
+    // Show current image if exists
+    if (news.image) {
+        document.getElementById('editPreviewImg').src = news.image;
+        document.getElementById('editImagePreview').classList.remove('hidden');
+    } else {
+        document.getElementById('editImagePreview').classList.add('hidden');
+    }
+    
+    // Show modal
+    document.getElementById('editModal').classList.remove('hidden');
+}
+
+// Edit form submission
+document.getElementById('editNewsForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const saveBtn = document.getElementById('saveEditBtn');
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<div class="loading mr-2"></div>Saving...';
+    
+    try {
+        const formData = new FormData(this);
+        
+        // Upload new image if selected
+        const imageFile = document.getElementById('editNewsImage').files[0];
+        if (imageFile) {
+            editUploadedImagePath = await uploadImage(imageFile);
+        }
+        
+        const updateData = {
+            id: editingNewsId,
+            title: formData.get('editNewsTitle'),
+            description: formData.get('editNewsDescription'),
+            link: formData.get('editArticleLink'),
+            datetime: formData.get('editNewsDateTime'),
+            image: editUploadedImagePath || newsData.find(n => n.id === editingNewsId).image
+        };
+        
+        await apiRequest(API_BASE_URL, {
+            method: 'PUT',
+            body: JSON.stringify(updateData)
+        });
+        
+        showToast('News article updated successfully!', 'success');
+        
+        // Close modal and refresh data
+        document.getElementById('editModal').classList.add('hidden');
+        await loadNewsData();
+        updateDashboard();
+        loadRecentActivity();
+        
+        // Reset edit variables
+        editingNewsId = null;
+        editUploadedImagePath = null;
+        
+    } catch (error) {
+        showToast('Error updating article', 'error');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Save Changes';
+    }
+});
+
+// Modal close handlers
+document.getElementById('cancelEditBtn').addEventListener('click', function() {
+    document.getElementById('editModal').classList.add('hidden');
+    editingNewsId = null;
+    editUploadedImagePath = null;
+});
+
+document.getElementById('editModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        document.getElementById('editModal').classList.add('hidden');
+        editingNewsId = null;
+        editUploadedImagePath = null;
+    }
+});
+
+// Edit image preview
+document.getElementById('editNewsImage').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('editPreviewImg').src = e.target.result;
+            document.getElementById('editImagePreview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+function resetRegCount() {
+    localStorage.removeItem('regCount');
+    showToast('Registration count has been reset', 'success');
+}
+
+
+const VIDEO_API = '../api/videos.php';
+
+
+
+document.getElementById('postVideoLink').addEventListener('click', e => {
+  e.preventDefault();
+  showSection('postVideo');
+});
+document.getElementById('viewVideoLink').addEventListener('click', e => {
+  e.preventDefault();
+  showSection('viewVideo');
+  loadVideos();
+});
+
+document.getElementById('videoForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const payload = Object.fromEntries(formData.entries());
+
+  const embedLink = convertToEmbed(payload.embed_link);
+  if (!embedLink) {
+    showToast('Invalid YouTube URL. Please make sure it is a valid video link.', 'error');
+    return;
+  }
+  payload.embed_link = embedLink;
+
+  try {
+    const res = await fetch('api/videos.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      showToast('Video posted successfully!');
+      this.reset();
+      loadVideos();
+    } else {
+      throw new Error(result.error || 'Unknown error');
+    }
+  } catch (err) {
+    showToast('Failed to post video: ' + err.message, 'error');
+    console.error(err);
+  }
+});
+
+function convertToEmbed(url) {
+  const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
+
+async function loadVideos() {
+  try {
+    const res = await fetch('api/videos.php');
+    const videos = await res.json();
+
+    videosList = videos; // <-- This line is CRUCIAL
+
+    const container = document.getElementById('videoContainer');
+    container.innerHTML = videos.map(video => `
+      <div class="video-card" data-category="${video.category}" data-aos="fade-up" data-aos-delay="200">
+        <div class="video-thumbnail">
+          <iframe src="${video.embed_link}?mute=1" title="${video.title}" frameborder="0" allowfullscreen width="100%" height="100%"></iframe>
+        </div>
+        <div class="video-info">
+          <h3 class="video-title">${video.title}</h3>
+          <p class="video-description">${video.description}</p>
+          <div class="video-meta flex justify-between items-center">
+            <div>
+              <span>${video.category}</span>
+              <span class="video-duration ml-2">${video.duration}</span>
+            </div>
+            <div class="flex space-x-3">
+              <button onclick="editVideo(${video.id})" class="text-blue-600 hover:text-blue-800">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deleteVideo(${video.id})" class="text-red-600 hover:text-red-800">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    showToast('Failed to load videos: ' + err.message, 'error');
+    console.error(err);
+  }
+}
+
+
+async function deleteVideo(id) {
+  if (!confirm("Are you sure you want to delete this video?")) return;
+
+  try {
+    const res = await fetch('api/videos.php', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      showToast('Video deleted successfully!');
+      loadVideos();
+    } else {
+      throw new Error(result.error || 'Unknown error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Error deleting video', 'error');
+  }
+}
+let videosList = []; // cache to help during edit
+
+async function editVideo(id) {
+  const video = videosList.find(v => v.id == id);
+  if (!video) return;
+
+  document.getElementById('editVideoId').value = video.id;
+  document.getElementById('editVideoTitle').value = video.title;
+  document.getElementById('editVideoDescription').value = video.description;
+  document.getElementById('editVideoCategory').value = video.category;
+  document.getElementById('editVideoDuration').value = video.duration;
+  document.getElementById('editVideoEmbed').value = video.embed_link;
+
+  document.getElementById('editVideoModal').classList.remove('hidden');
+}
+
+function closeEditVideoModal() {
+  document.getElementById('editVideoModal').classList.add('hidden');
+}
+document.getElementById('editVideoForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const payload = {
+    id: document.getElementById('editVideoId').value,
+    title: document.getElementById('editVideoTitle').value,
+    description: document.getElementById('editVideoDescription').value,
+    category: document.getElementById('editVideoCategory').value,
+    duration: document.getElementById('editVideoDuration').value,
+    embed_link: convertToEmbed(document.getElementById('editVideoEmbed').value)
+  };
+
+  try {
+    const res = await fetch('api/videos.php', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      showToast('Video updated successfully!');
+      closeEditVideoModal();
+      loadVideos();
+    } else {
+      throw new Error(result.error || 'Update failed');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to update video', 'error');
+  }
+});
+
+    </script>
+</body>
+</html>

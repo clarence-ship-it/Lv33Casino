@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - LV33 Casino</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+          .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo img {
+            height: 45px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+.back-btn {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 60px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 60px 20px 20px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* FAQ Categories */
+        .faq-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-card h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 60px;
+        }
+
+        .faq-section h2 {
+            color: #fff;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .faq-question h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 25px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: #ccc;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-section h2 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-section p {
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p, .footer-section li {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .search-section,
+            .faq-section,
+            .contact-section {
+                padding: 30px 20px;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .faq-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top: 3px solid #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images-1.png" alt="LV33 Logo">
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="currency.html">Vlogger/Ambasador Program</a>
+                <a href="promotion.html">Promotions</a>
+                <a href="News.html">News</a>
+                <a href="deposit.html">How to Deposit/Withdraw</a>
+                <a href="rebates.html">Rebates & Bonuses</a>
+                <a href="affiliate.html">Affiliate Program</a>
+                <a href="video.html">Video Center</a>
+                <a href="download.html">Download App</a>
+                <a href="live_chat.html">Live Chat</a>
+            </nav>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <button class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" data-aos="fade-up">
+                <h1>Help Center</h1>
+                <p>Find answers to your questions and get the support you need for the ultimate gaming experience</p>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section" data-aos="fade-up" data-aos-delay="200">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for help topics, games, payments..." id="helpSearch">
+                    <button class="search-btn" onclick="searchHelp()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FAQ Categories -->
+            <div class="faq-categories" data-aos="fade-up" data-aos-delay="400">
+                <div class="category-card" onclick="showCategory('account')">
+                    <i class="fas fa-user-circle category-icon"></i>
+                    <h3>Account & Registration</h3>
+                    <p>Account creation, verification, profile management, and security settings</p>
+                </div>
+                <div class="category-card" onclick="showCategory('payments')">
+                    <i class="fas fa-credit-card category-icon"></i>
+                    <h3>Payments & Withdrawals</h3>
+                    <p>Deposit methods, withdrawal process, payment issues, and transaction history</p>
+                </div>
+                <div class="category-card" onclick="showCategory('games')">
+                    <i class="fas fa-gamepad category-icon"></i>
+                    <h3>Games & Gameplay</h3>
+                    <p>Game rules, technical issues, RTP information, and gaming strategies</p>
+                </div>
+                <div class="category-card" onclick="showCategory('bonuses')">
+                    <i class="fas fa-gift category-icon"></i>
+                    <h3>Bonuses & Promotions</h3>
+                    <p>Welcome bonuses, wagering requirements, VIP program, and promotional offers</p>
+                </div>
+                <div class="category-card" onclick="showCategory('technical')">
+                    <i class="fas fa-cog category-icon"></i>
+                    <h3>Technical Support</h3>
+                    <p>App issues, browser compatibility, connection problems, and mobile gaming</p>
+                </div>
+                <div class="category-card" onclick="showCategory('responsible')">
+                    <i class="fas fa-shield-alt category-icon"></i>
+                    <h3>Responsible Gaming</h3>
+                    <p>Deposit limits, self-exclusion, gambling addiction resources, and safety tools</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section" data-aos="fade-up" data-aos-delay="600">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container" id="faqContainer">
+                    <!-- FAQ items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section" data-aos="fade-up" data-aos-delay="800">
+                <h2>Still Need Help?</h2>
+                <p>Our friendly support team is available 24/7 to assist you with any questions or concerns</p>
+                <div class="contact-buttons">
+                    <a href="live_chat.html" class="contact-btn">
+                        <i class="fas fa-comments"></i>
+                        Live Chat
+                    </a>
+                    <a href="mailto:support@lv33.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i>
+                        Email Support
+                    </a>
+                    <a href="tel:+1-800-LV33-247" class="contact-btn">
+                        <i class="fas fa-phone"></i>
+                        Call Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LV33 Casino</h3>
+                    <p>Experience the ultimate online gaming destination with premium games, massive jackpots, and unparalleled service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#games">Games</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#testimonials">Reviews</a></li>
+                        <li><a href="promotion.html">Promotions</a></li>
+                        <li><a href="affiliate.html">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="deposit.html">Payment Methods</a></li>
+                        <li><a href="gaming.html">Responsible Gaming</a></li>
+                        <li><a href="terms_&_condition.html">Terms & Conditions</a></li>
+                        <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> support@lv33.com</p>
+                    <p><i class="fas fa-phone"></i> +1-800-LV33-247</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Customer Support</p>
+                    <p><i class="fas fa-shield-alt"></i> Licensed & Regulated</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LV33 Casino. All rights reserved. | 18+ Only | Gamble Responsibly</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // FAQ Data
+        const faqData = {
+            account: [
+                {
+                    question: "How do I create an account?",
+                    answer: "Creating an account is simple! Click the 'Join Now' button, fill out the registration form with your personal details, verify your email address, and you're ready to start playing. The entire process takes less than 5 minutes."
+                },
+                {
+                    question: "What documents do I need for verification?",
+                    answer: "For account verification, you'll need a valid government-issued ID (passport, driver's license, or national ID card) and a recent utility bill or bank statement as proof of address. All documents must be clear and unedited."
+                },
+                {
+                    question: "How do I change my password?",
+                    answer: "To change your password, log into your account, go to 'Account Settings', select 'Security', and click 'Change Password'. You'll need to enter your current password and create a new one. Make sure to use a strong password with at least 8 characters."
+                },
+                {
+                    question: "Can I have multiple accounts?",
+                    answer: "No, each player is allowed only one account. Multiple accounts are strictly prohibited and may result in account suspension and forfeiture of any winnings. If you need to recover access to your existing account, please contact our support team."
+                }
+            ],
+            payments: [
+                {
+                    question: "What payment methods do you accept?",
+                    answer: "We accept major credit cards (Visa, Mastercard), e-wallets (PayPal, Skrill, Neteller), bank transfers, and various cryptocurrencies including Bitcoin, Ethereum, and Litecoin. All transactions are secured with SSL encryption."
+                },
+                {
+                    question: "How long do withdrawals take?",
+                    answer: "Withdrawal processing times vary by method: E-wallets (1-24 hours), Credit cards (3-5 business days), Bank transfers (3-7 business days), Cryptocurrencies (1-6 hours). All withdrawals are processed within 24 hours of approval."
+                },
+                {
+                    question: "Are there any withdrawal limits?",
+                    answer: "Standard withdrawal limits are $5,000 per day and $20,000 per month. VIP players enjoy higher limits. The minimum withdrawal amount is $20 for most methods. There are no fees for withdrawals, but some payment providers may charge their own fees."
+                },
+                {
+                    question: "Why was my withdrawal rejected?",
+                    answer: "Withdrawals may be rejected due to incomplete account verification, insufficient funds, using a different payment method than used for deposits, or not meeting wagering requirements. Contact support for specific details about your withdrawal."
+                }
+            ],
+            games: [
+                {
+                    question: "Are your games fair and random?",
+                    answer: "Yes, all our games use certified Random Number Generators (RNG) and are regularly audited by independent testing agencies like eCOGRA. Our gaming license ensures all games meet strict fairness standards."
+                },
+                {
+                    question: "What is RTP (Return to Player)?",
+                    answer: "RTP is the percentage of all wagered money that a slot machine or game pays back to players over time. For example, a 96% RTP means that for every $100 wagered, the game returns $96 to players on average. Our games have RTPs ranging from 94% to 99%."
+                },
+                {
+                    question: "Can I play games for free?",
+                    answer: "Yes, most of our slot games offer a demo mode where you can play for free using virtual credits. This lets you learn the game mechanics and features before playing with real money. Live dealer games require real money bets."
+                },
+                {
+                    question: "What should I do if a game malfunctions?",
+                    answer: "If you experience a game malfunction, immediately stop playing and contact our support team with details about the issue, including the game name, time of occurrence, and your bet amount. We'll investigate and resolve any issues promptly."
+                }
+            ],
+            bonuses: [
+                {
+                    question: "How do I claim the welcome bonus?",
+                    answer: "The welcome bonus is automatically credited to new players upon making their first deposit. Simply create an account, make a qualifying deposit of at least $20, and your bonus will be added to your account instantly. Remember to read the terms and conditions."
+                },
+                {
+                    question: "What are wagering requirements?",
+                    answer: "Wagering requirements specify how many times you must play through your bonus amount before withdrawing winnings. For example, a $100 bonus with 30x wagering requires $3,000 in total bets. Different games contribute differently to meeting these requirements."
+                },
+                {
+                    question: "How do I join the VIP program?",
+                    answer: "VIP membership is by invitation only, based on your gaming activity and deposit history. Active players are automatically considered for VIP status. VIP members enjoy exclusive bonuses, personal account managers, faster withdrawals, and special events."
+                },
+                {
+                    question: "Do bonuses expire?",
+                    answer: "Yes, most bonuses have expiration dates. Welcome bonuses typically expire after 30 days, while promotional bonuses may have shorter timeframes. Check the specific terms for each bonus. Unused bonuses and associated winnings will be removed after expiration."
+                }
+            ],
+            technical: [
+                {
+                    question: "What browsers do you support?",
+                    answer: "Our platform works best on updated versions of Chrome, Firefox, Safari, and Edge. We recommend using the latest browser version for optimal performance. Our mobile app is available for iOS and Android devices."
+                },
+                {
+                    question: "Why are games loading slowly?",
+                    answer: "Slow loading can be caused by internet connection issues, outdated browser, cache problems, or server maintenance. Try clearing your browser cache, checking your internet connection, or using a different browser. Contact support if issues persist."
+                },
+                {
+                    question: "Can I play on my mobile device?",
+                    answer: "Yes! Our platform is fully optimized for mobile play. You can play directly through your mobile browser or download our dedicated iOS/Android app for the best mobile gaming experience. All games and features are available on mobile."
+                },
+                {
+                    question: "What should I do if I'm having connection issues?",
+                    answer: "For connection issues, try refreshing the page, clearing your browser cache, checking your internet connection, or switching to a different browser. If you're using a VPN, try disconnecting it. Contact technical support if problems continue."
+                }
+            ],
+            responsible: [
+                {
+                    question: "How can I set deposit limits?",
+                    answer: "You can set daily, weekly, or monthly deposit limits in your account settings under 'Responsible Gaming'. Limits take effect immediately when decreased and after 24 hours when increased. This helps you maintain control over your gambling budget."
+                },
+                {
+                    question: "What is self-exclusion?",
+                    answer: "Self-exclusion allows you to temporarily or permanently block access to your account. You can set exclusion periods from 24 hours to 6 months or permanently. During exclusion, you won't be able to deposit, play, or receive marketing communications."
+                },
+                {
+                    question: "How do I know if I have a gambling problem?",
+                    answer: "Warning signs include spending more than you can afford, chasing losses, gambling affecting your relationships or work, lying about gambling activities, or feeling the need to gamble with increasing amounts. If you recognize these signs, seek help immediately from organizations like GamCare or Gamblers Anonymous."
+                },
+                {
+                    question: "Where can I get help for gambling addiction?",
+                    answer: "We partner with several organizations that provide free support: GamCare (www.gamcare.org.uk), Gamblers Anonymous (www.gamblersanonymous.org), and BeGambleAware (www.begambleaware.org). You can also contact our support team to discuss self-exclusion options and additional resources."
+                }
+            ]
+        };
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            setTimeout(() => {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Show FAQ category
+        function showCategory(category) {
+            const faqContainer = document.getElementById('faqContainer');
+            const faqs = faqData[category] || [];
+            
+            faqContainer.innerHTML = faqs.map((faq, index) => `
+                <div class="faq-item" data-category="${category}">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>${faq.question}</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>${faq.answer}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Scroll to FAQ section
+            document.querySelector('.faq-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Toggle FAQ item
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Search functionality
+        function searchHelp() {
+            const searchTerm = document.getElementById('helpSearch').value.toLowerCase();
+            if (!searchTerm) return;
+
+            let results = [];
+            Object.keys(faqData).forEach(category => {
+                faqData[category].forEach(faq => {
+                    if (faq.question.toLowerCase().includes(searchTerm) || 
+                        faq.answer.toLowerCase().includes(searchTerm)) {
+                        results.push({...faq, category});
+                    }
+                });
+            });
+
+            displaySearchResults(results, searchTerm);
+        }
+
+        // Display search results
+        function displaySearchResults(results, searchTerm) {
+            const faqContainer = document.getElementById('faqContainer');
+            
+            if (results.length === 0) {
+                faqContainer.innerHTML = `
+                    <div class="no-results" style="text-align: center; padding: 40px; color: #ccc;">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3>No results found for "${searchTerm}"</h3>
+                        <p>Try different keywords or browse our categories above.</p>
+                    </div>
+                `;
+            } else {
+                faqContainer.innerHTML = `
+                    <div class="search-results-header" style="margin-bottom: 30px; text-align: center;">
+                        <h3 style="color: #fff; margin-bottom: 10px;">Search Results for "${searchTerm}"</h3>
+                        <p style="color: #ccc;">${results.length} result(s) found</p>
+                    </div>
+                    ${results.map((faq, index) => `
+                        <div class="faq-item" data-category="${faq.category}">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <h3>${highlightSearchTerm(faq.question, searchTerm)}</h3>
+                                <div class="faq-toggle">+</div>
+                            </div>
+                            <div class="faq-answer">
+                                <p>${highlightSearchTerm(faq.answer, searchTerm)}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                `;
+            }
+
+            // Scroll to results
+            document.querySelector('.faq-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Highlight search terms
+        function highlightSearchTerm(text, term) {
+            const regex = new RegExp(`(${term})`, 'gi');
+            return text.replace(regex, '<mark style="background: #ffd700; color: #000; padding: 2px 4px; border-radius: 3px;">$1</mark>');
+        }
+
+        // Search on Enter key
+        document.getElementById('helpSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchHelp();
+            }
+        });
+
+        // Load default FAQs on page load
+        window.addEventListener('load', function() {
+            // Show account FAQs by default
+            showCategory('account');
+        });
+
+        // Add smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add hover effects to category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click effect to buttons
+        document.querySelectorAll('.contact-btn, .search-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% { transform: scale(0); opacity: 1; }
+                100% { transform: scale(10); opacity: 0; }
+            }
+            
+            .no-results {
+                animation: fadeIn 0.5s ease-out;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .search-results-header {
+                animation: slideDown 0.5s ease-out;
+            }
+            
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            /* Mobile responsive adjustments */
+            @media (max-width: 768px) {
+                .nav-menu {
+                    position: fixed;
+                    top: 70px;
+                    left: -100%;
+                    width: 100%;
+                    height: calc(100vh - 70px);
+                    background: rgba(0, 0, 0, 0.95);
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    padding: 50px 0;
+                    transition: left 0.3s ease;
+                }
+                
+                .nav-menu.active {
+                    left: 0;
+                }
+                
+                .nav-menu a {
+                    padding: 15px 0;
+                    font-size: 1.2rem;
+                }
+                
+                .search-input {
+                    font-size: 1rem;
+                    padding: 15px 50px 15px 20px;
+                }
+                
+                .search-btn {
+                    padding: 8px 15px;
+                    font-size: 1rem;
+                }
+                
+                .category-card {
+                    padding: 30px 20px;
+                }
+                
+                .category-icon {
+                    font-size: 2.5rem;
+                }
+                
+                .faq-question h3 {
+                    font-size: 1.1rem;
+                }
+                
+                .contact-btn {
+                    padding: 12px 25px;
+                    font-size: 1rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add scroll-to-top functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop;
+            
+            // Show/hide scroll to top button
+            let scrollButton = document.getElementById('scrollToTop');
+            if (!scrollButton) {
+                scrollButton = document.createElement('button');
+                scrollButton.id = 'scrollToTop';
+                scrollButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                scrollButton.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    width: 50px;
+                    height: 50px;
+                    background: linear-gradient(45deg, #ffd700, #ff6b6b);
+                    border: none;
+                    border-radius: 50%;
+                    color: white;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                    z-index: 1000;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                `;
+                
+                scrollButton.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                document.body.appendChild(scrollButton);
+            }
+            
+            if (scrollTop > 500) {
+                scrollButton.style.opacity = '1';
+                scrollButton.style.visibility = 'visible';
+            } else {
+                scrollButton.style.opacity = '0';
+                scrollButton.style.visibility = 'hidden';
+            }
+        });
+    </script>
+</body>
+</html>

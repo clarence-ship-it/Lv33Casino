@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LV33 – Latest News</title>
+
+    <!-- External libs (keep original functionality) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+    <!-- ===== Redesigned styling to match affiliate.html ===== -->
+    <style>
+        /* RESET + BASE */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height:1.6;
+            color:#ccc;
+            background:linear-gradient(135deg,#0f0f23 0%,#1a1a2e 50%,#16213e 100%);
+            min-height:100vh;
+        }
+        a { text-decoration:none; }
+
+        /* ===== Header ===== */
+        .header {
+            background:rgba(0,0,0,.95);
+            backdrop-filter:blur(10px);
+            position:fixed; top:0; width:100%; z-index:1000;
+            transition:all .3s ease;
+        }
+        .header.scrolled {
+            background:rgba(0,0,0,.98);
+            box-shadow:0 2px 20px rgba(0,0,0,.5);
+        }
+        .nav-container { display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; }
+        .logo img { height:45px; }
+        .nav-menu { display:flex; gap:2rem; }
+        .nav-menu a { color:white; font-weight:500; transition:color .3s ease; }
+        .nav-menu a:hover { color:#ffd700; }
+        .back-button {
+            background:linear-gradient(45deg,#ffd700,#ffed4e);
+            color:#333; padding:.5rem 1rem; border-radius:25px; font-weight:bold; transition:all .3s ease;
+        }
+        .back-button:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,215,0,.4); }
+.nav-menu a.active {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 1px;
+}
+
+        /* ===== Hero ===== */
+        .hero { padding:120px 0 60px; text-align:center; position:relative; overflow:hidden; }
+        .hero::before { content:''; position:absolute; inset:0; background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffd700" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffd700" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>'); opacity:.3; }
+        .hero-content { position:relative; z-index:2; }
+        .hero h1 { font-size:3.5rem; margin-bottom:1rem; background:linear-gradient(45deg,#ffd700,#ffed4e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero p { font-size:1.3rem; max-width:600px; margin:0 auto 2rem; }
+
+        /* ===== Stats bar (gold numbers) ===== */
+        .stats-bar { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin-top:3rem; }
+        .stat-box { text-align:center; padding:2rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,215,0,.2); border-radius:15px; }
+        .stat-value { font-size:3rem; color:#ffd700; font-weight:bold; margin-bottom:.5rem; }
+        .stat-label { color:#ccc; }
+
+        /* ===== News grid ===== */
+        .news-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin-top:3rem; }
+        .news-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,215,0,.2); border-radius:15px; overflow:hidden; transition:all .3s ease; position:relative; cursor:pointer; }
+        .news-card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(255,215,0,.15); }
+        .news-card img { width:100%; height:180px; object-fit:cover; }
+        .news-card .content { padding:1.5rem; }
+        .news-card h3 { color:white; font-size:1.25rem; margin-bottom:.75rem; line-height:1.3; }
+        .news-card p { color:#bbb; font-size:.95rem; line-height:1.5; margin-bottom:1rem; }
+        .news-meta { font-size:.8rem; color:#888; display:flex; justify-content:space-between; margin-top:.5rem; }
+
+        /* ===== Modal ===== */
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; z-index:2000; }
+        .modal-box { background:#111827; width:100%; max-width:850px; max-height:90vh; overflow-y:auto; border-radius:15px; border:1px solid rgba(255,215,0,.2); }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; padding:1.25rem 2rem; border-bottom:1px solid rgba(255,215,0,.1); position:sticky; top:0; background:#111827; z-index:10; }
+        .modal-header h2 { color:#ffd700; font-size:1.5rem; }
+        .modal-header button { color:#ccc; font-size:1.25rem; }
+        .modal-body { padding:2rem; color:#ddd; }
+        .modal-body img { width:100%; height:300px; object-fit:cover; border-radius:10px; margin-bottom:1.5rem; }
+        .modal-actions { display:flex; justify-content:space-between; margin-top:2rem; }
+        .btn-primary { background:linear-gradient(45deg,#ffd700,#ffed4e); color:#000; padding:.9rem 2rem; border-radius:50px; font-weight:bold; display:inline-flex; align-items:center; gap:.5rem; transition:all .3s ease; }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 25px rgba(255,215,0,.4); }
+        .btn-icon { color:#ccc; transition:color .3s ease; }
+        .btn-icon:hover { color:#ffd700; }
+
+        /* ===== Loader & empty states (centered) ===== */
+        .state-wrapper { display:flex; justify-content:center; align-items:center; padding:80px 0; }
+        .loading { width:40px; height:40px; border:4px solid #444; border-radius:50%; border-top:4px solid #ffd700; animation:spin 1s linear infinite; }
+        @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+
+        /* ===== Footer ===== */
+        .footer { background:rgba(0,0,0,.9); color:white; padding:3rem 0 1rem; margin-top:4rem; }
+        .footer-content { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; margin-bottom:2rem; }
+        .footer-section h3 { color:#ffd700; margin-bottom:1rem; }
+        .footer-section p, .footer-section a { color:#ccc; font-size:.9rem; }
+        .footer-section a:hover { color:#ffd700; }
+        .footer-bottom { text-align:center; padding-top:2rem; border-top:1px solid rgba(255,215,0,.2); color:#ccc; font-size:.85rem; }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        /* ===== Utilities ===== */
+        .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+        .line-clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+
+        @media(max-width:768px){ .nav-menu{display:none;} .hero h1{font-size:2.5rem;} .hero p{font-size:1.1rem;} .news-grid{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="images-1.png" alt="LV33"></a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="vlogger.html">Vlogger/Ambasador Program</a>
+                <a href="promotion.html">Promotions</a>
+                <a href="News.html">News</a>
+                <a href="deposit.html">How to Deposit/Withdraw</a>
+                <a href="rebates.html">Rebates & Bonuses</a>
+                <a href="affiliate.html">Affiliate Program</a>
+                <a href="video.html">Video Center</a>
+                <a href="download.html">Download App</a>
+                <a href="live_chat.html">Live Chat</a>
+            </nav>
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="container mx-auto px-4 hero-content" data-aos="fade-up">
+            <h1>Latest News & Updates</h1>
+            <p>Stay on top of everything happening at LV33 – real‑time announcements, promos & more.</p>
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-value" id="totalArticles">0</div>
+                    <div class="stat-label">Total Articles</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="todayArticles">0</div>
+                    <div class="stat-label">Published Today</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="thisWeekArticles">0</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+            </div>
+            <p class="text-sm mt-4 text-gray-400"> <span id="lastUpdated">Loading...</span></p>
+            <button id="refreshBtn" class="mt-4 btn-primary"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+    </section>
+
+    <!-- Loading / Empty states -->
+    <div id="loadingState" class="state-wrapper"><div class="loading"></div></div>
+    <div id="noNewsState" class="state-wrapper hidden">
+        <div class="text-center">
+            <i class="fas fa-newspaper text-6xl text-gray-500 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-300 mb-2">No News Available</h3>
+            <p class="text-gray-400">Check back later for the latest updates.</p>
+        </div>
+    </div>
+
+    <!-- News Grid -->
+    <section class="container mx-auto px-4">
+        <div id="newsGrid" class="news-grid hidden"></div>
+    </section>
+
+    <!-- News Modal -->
+    <div id="newsModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2 id="modalTitle">Title</h2>
+                <button id="closeModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImg" src="" alt="">
+                <div class="flex gap-4 text-sm text-gray-400 mb-4">
+                    <span id="modalDate"></span> <span id="modalTime"></span>
+                </div>
+                <p id="modalDescription" class="leading-relaxed"></p>
+                <div class="modal-actions">
+                    <a id="modalLink" href="#" target="_blank" class="btn-primary"><span>Read Full Article</span><i class="fas fa-external-link-alt"></i></a>
+                    <button id="shareBtn" class="btn-icon text-lg"><i class="fas fa-share-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container mx-auto px-4 footer-content">
+            <div class="footer-section">
+                <h3>LV33 News Center</h3>
+                <p>All the latest announcements, game releases & insiders – directly from LV33 HQ.</p>
+                <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="promotion.html">Promotions</a></li>
+                    <li><a href="deposit.html">How to Deposit/Withdraw</a></li>
+                    <li><a href="rebates.html">Rebates & Bonuses</a></li>
+                    <li><a href="affiliate.html">Affiliate Program</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                     <ul>
+                        <li><a href="help_center.html">Help Center</a></li>
+                        <li><a href="live_chat.html">Live Chat</a></li>
+                        <li><a href="payment.html">Payment Methods</a></li>
+                        <li><a href="gaming.html">Responsible Gaming</a></li>
+                        <li><a href="terms_&_condition.html">Terms & Conditions</a></li>
+                        <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    </ul>
+            </div>
+            <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> support@lv33.com</p>
+                    <p><i class="fas fa-phone"></i> +1-800-LV33-24</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Customer Support</p>
+                    <p><i class="fas fa-shield-alt"></i> Licensed & Regulated</p>
+                </div>
+        </div>
+        <div class="footer-bottom">
+                <p>&copy; 2025 LV33 Casino. All rights reserved. | 18+ Only | Gamble Responsibly</p>
+            </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration:800, once:true, offset:100 });
+
+        // Header scroll effect
+        window.addEventListener('scroll',()=>{
+            const h=document.getElementById('header');
+            window.scrollY>100 ? h.classList.add('scrolled'):h.classList.remove('scrolled');
+        });
+
+        // API Configuration (same endpoint, keep functionality)
+        const API_BASE_URL='api/news.php';
+        let newsData=[]; let currentNews=null;
+
+        // DOM Elements
+        const newsGrid=document.getElementById('newsGrid');
+        const loadingState=document.getElementById('loadingState');
+        const noNewsState=document.getElementById('noNewsState');
+        const refreshBtn=document.getElementById('refreshBtn');
+        const newsModal=document.getElementById('newsModal');
+        const closeModal=document.getElementById('closeModal');
+        const shareBtn=document.getElementById('shareBtn');
+        const lastUpdated=document.getElementById('lastUpdated');
+
+        document.addEventListener('DOMContentLoaded',()=>{ loadNews(); updateStats(); setInterval(loadNews,5*60*1000); });
+
+        async function apiRequest(url,options={}){
+            const res=await fetch(url,{ headers:{'Content-Type':'application/json',...options.headers},...options });
+            if(!res.ok) throw new Error(`HTTP error ${res.status}`);
+            return await res.json();
+        }
+
+        async function loadNews(){
+            try{
+                showLoading();
+                const data=await apiRequest(API_BASE_URL+'?action=all');
+                newsData=data;
+                if(newsData.length===0){ showNoNews(); } else { displayNews(); updateLastUpdated(); }
+                updateStats();
+            }catch(e){ console.error(e); showError(); }
+        }
+
+        async function updateStats(){
+            try{
+                const s=await apiRequest(API_BASE_URL+'?action=stats');
+                document.getElementById('totalArticles').textContent=s.total||0;
+                document.getElementById('todayArticles').textContent=s.today||0;
+                document.getElementById('thisWeekArticles').textContent=s.thisWeek||0;
+            }catch(e){ console.error(e); }
+        }
+
+        function showLoading(){ loadingState.classList.remove('hidden'); newsGrid.classList.add('hidden'); noNewsState.classList.add('hidden'); }
+        function showNoNews(){ loadingState.classList.add('hidden'); newsGrid.classList.add('hidden'); noNewsState.classList.remove('hidden'); }
+        function showError(){ noNewsState.querySelector('h3').textContent='Error Loading News'; }
+
+        function displayNews(){
+            loadingState.classList.add('hidden'); noNewsState.classList.add('hidden'); newsGrid.classList.remove('hidden');
+            const sorted=[...newsData].sort((a,b)=>new Date(b.datetime)-new Date(a.datetime));
+            newsGrid.innerHTML=sorted.map(n=>`<article class="news-card" onclick="openNewsModal(${n.id})">
+                ${n.image?`<img src="${n.image}" alt="${n.title}">`:`<div class='h-48 bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center'><i class='fas fa-newspaper text-4xl text-yellow-400/80'></i></div>`}
+                <div class="content">
+                    <div class="news-meta"><span>${formatDate(n.datetime)}</span><span>${formatTime(n.datetime)}</span></div>
+                    <h3 class="line-clamp-2">${n.title}</h3>
+                    <p class="line-clamp-3">${n.description}</p>
+                </div>
+            </article>`).join('');
+        }
+
+        function openNewsModal(id){
+            currentNews=newsData.find(n=>n.id===id); if(!currentNews) return;
+            document.getElementById('modalTitle').textContent=currentNews.title;
+            document.getElementById('modalDescription').textContent=currentNews.description;
+            document.getElementById('modalDate').textContent=formatDate(currentNews.datetime);
+            document.getElementById('modalTime').textContent=formatTime(currentNews.datetime);
+            document.getElementById('modalLink').href=currentNews.link;
+            if(currentNews.image){ document.getElementById('modalImg').src=currentNews.image; document.getElementById('modalImg').alt=currentNews.title; document.getElementById('modalImg').classList.remove('hidden'); }
+            else { document.getElementById('modalImg').classList.add('hidden'); }
+            newsModal.classList.remove('hidden'); document.body.style.overflow='hidden';
+        }
+        function closeNewsModal(){ newsModal.classList.add('hidden'); document.body.style.overflow='auto'; currentNews=null; }
+
+        function shareNews(id){
+            const n=newsData.find(x=>x.id===id); if(!n) return;
+            if(navigator.share){ navigator.share({title:n.title,text:n.description,url:n.link}); }
+            else { navigator.clipboard.writeText(n.link).then(()=>showToast('Link copied!')); }
+        }
+
+        function formatDate(d){ const date=new Date(d); return date.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+        function formatTime(d){ const date=new Date(d); return date.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }
+        function updateLastUpdated(){ lastUpdated.textContent='Last updated: '+new Date().toLocaleTimeString(); }
+        function showToast(msg){ const t=document.createElement('div'); t.className='fixed top-24 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-[3000] transition-transform'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>{t.style.transform='translateX(120%)'; setTimeout(()=>t.remove(),300);},2000); }
+
+        refreshBtn.addEventListener('click',function(){ this.classList.add('animate-spin'); loadNews().finally(()=>this.classList.remove('animate-spin')); });
+        closeModal.addEventListener('click',closeNewsModal);
+        shareBtn.addEventListener('click',()=>{ if(currentNews) shareNews(currentNews.id); });
+        newsModal.addEventListener('click',e=>{ if(e.target===newsModal) closeNewsModal(); });
+        document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!newsModal.classList.contains('hidden')) closeNewsModal(); });
+    </script>
+        <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+  const navLinks = document.querySelectorAll('.nav-menu a');
+
+  navLinks.forEach(link => {
+    const linkPath = new URL(link.href).pathname.replace(/\/+$/, '').toLowerCase();
+
+    // Only exact match
+    if (linkPath === currentPath) {
+      // Clear previous active classes
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active'); // ← now matches your new CSS
+    }
+  });
+});
+
+</script>
+</body>
+</html>
